@@ -1,0 +1,40 @@
+from anytree import Node, RenderTree
+import re
+
+curr_dir = None
+with open("aoc-day7") as fp:
+    for line in fp:
+        match_cd = re.search(r"\$ cd (.+)", line)
+        match_file = re.search(r"(\d+) (.+)", line)
+      
+        if match_cd:    
+            arg = match_cd.group(1)
+            name = f"{arg} (dir)"
+            curr_dir = Node(name, parent=curr_dir) if arg != ".." else curr_dir.parent
+            #if we cd, set current directory to this directory, if it is a traversal just set
+            #current directory to the parent
+          
+        elif match_file:
+            size, name = match_file.groups()
+            name = f"{name} (file, size={size})"
+            Node(name, parent=curr_dir) 
+            #file's parent is the current directory
+
+for pre, _, node in RenderTree(curr_dir.root):
+    print(pre + node.name)
+    #print in preorder
+
+sizes = {}
+for leaf in curr_dir.root.leaves:  #go through tree
+    size = int(leaf.name.split("=")[-1][:-1])  #size is last element split by =
+    for a in leaf.ancestors:  #for each 
+        path = "/".join([x.name for x in a.path])
+        sizes[path] = size if path not in sizes else sizes[path] + size
+
+disk_space_used = 70_000_000 - sizes["/ (dir)"]
+disk_space_to_clean = 30_000_000 - disk_space_used
+
+part_one = sum([x for x in sizes.values() if x <= 100_000])
+part_two = min([x for x in sizes.values() if x >= disk_space_to_clean])
+
+print("\nPart 1:", part_one, "\nPart 2:", part_two)

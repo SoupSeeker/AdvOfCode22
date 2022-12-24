@@ -1,0 +1,47 @@
+with open("aoc-day5", "r") as f:
+  s0 = ['R', 'S', 'L', 'F', 'Q']  #1
+  s1 = ['N', 'Z', 'Q', 'G', 'P', 'T']  #2
+  s2 = ['S', 'M', 'Q', 'B']  #3
+  s3 = ['T', 'G', 'Z', 'J', 'H', 'C', 'B', 'Q']  #4
+  s4 = ['P', 'H', 'M', 'B', 'N', 'F', 'S']  #5
+  s5 = ['P', 'C', 'Q', 'N', 'S', 'L', 'V', 'G']  #6
+  s6 = ['W', 'C', 'F']  #7
+  s7 = ['Q', 'H', 'G', 'Z', 'W', 'V', 'P', 'M']  #8
+  s8 = ['G', 'Z', 'D', 'L', 'C', 'N', 'R']  #9
+
+  stacks = s0, s1, s2, s3, s4, s5, s6, s7, s8
+
+  for line in f:
+    line = line.split()
+    #line[1]:number of elements we need to move
+    #line[3]:the stack we want to move from
+    #line[5]:stack we are moving to 
+    
+    # ---part 1----
+    '''
+    sub = []
+    for i in range(int(line[1])):
+      sub.append(stacks[int(line[3])-1].pop())
+
+    for k in sub:
+      stacks[int(line[5])-1].append(k)
+    '''
+    # ---part 1----
+    
+    # ---part 2----
+    '''
+    lastN = stacks[int(line[3]) - 1][-int(line[1]):]  #get last N elements
+
+    del stacks[int(line[3]) - 1][-int(line[1]):]
+
+    for item in lastN:
+      print(item)
+      stacks[int(line[5]) - 1].append(item)
+    '''
+    # ---part 2----
+    
+
+    
+  for s in stacks:
+    print(s)
+

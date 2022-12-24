@@ -1,0 +1,79 @@
+fd = open("aoc-day2", "r")
+
+'''
+#yeah idk, haha, this didn't work
+moves = {
+  ["tie", ['A','X']], #tie
+  ["win", ['A','Y']], #win
+  ["lose", ['A','Z']], #lose
+  ["lose", ['B','X']], #lose
+  ["tie", ['B','Y']], #tie
+  ["win", ['B','Z']], #win
+  ["win", ['C','X']], #win
+  ["lose", ['C','Y']], #lose
+  ["tie", ['C','Z']]
+}
+'''
+
+score = 0
+'''
+#part 1
+for line in fd:
+  a = line.split()
+  if a[1] == 'X':
+    score += 1
+  if a[1] == 'Y':
+    score += 2
+  if a[1] == 'Z':
+    score += 3
+
+  if a == ['A','X'] or a == ['B','Y'] or a == ['C','Z']:
+    score += 3
+  elif a == ['A','Y'] or a == ['B','Z'] or a == ['C','X']:
+    score += 6
+
+print(score)
+'''
+
+#part 2
+ourMove = ""
+
+for line in fd:
+  a = line.split()
+
+  if a[1] == 'X': #X means we need to take the dive
+    if a[0] == 'A':
+      ourMove = 'Z'
+      score += 3
+    elif a[0] == 'B':
+      ourMove = 'X'
+      score += 1
+    elif a[0] == 'C':
+      ourMove = 'Y'
+      score += 2
+      
+  elif a[1] == 'Y': #Y means we need to make a tie
+    score += 3
+    if a[0] == 'A':
+      ourMove = 'X'
+      score += 1
+    elif a[0] == 'B':
+      ourMove = 'Y'
+      score += 2
+    elif a[0] == 'C':
+      ourMove = 'Z'
+      score += 3
+      
+  elif a[1] == 'Z': #Z means we take the win
+    score += 6
+    if a[0] == 'A':
+      ourMove = 'Y'
+      score += 2
+    elif a[0] == 'B':
+      ourMove = 'Z'
+      score += 3
+    elif a[0] == 'C':
+      ourMove = 'X'
+      score += 1
+
+print(score)

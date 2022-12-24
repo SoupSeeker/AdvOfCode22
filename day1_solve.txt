@@ -1,0 +1,26 @@
+fd = open("aoc-day1", "r")
+
+arr = []
+sub = 0
+
+for line in fd:
+  if line.strip():
+    sub += int(line)
+  else:
+    arr.append(sub)
+    sub = 0
+
+print("1", max(arr)) #part 1 just wants this first one
+a = max(arr)
+arr.remove(max(arr))
+
+print("2", max(arr))
+b = max(arr)
+arr.remove(max(arr))
+
+print("3", max(arr))
+c = max(arr)
+arr.remove(max(arr))
+
+s = a+b+c
+print(s)

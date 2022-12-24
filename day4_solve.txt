@@ -1,0 +1,23 @@
+with open("aoc-day4", "r") as f:
+  n = 0
+  for line in f:
+    l, r = line.split(",")
+    l1, l2 = l.split("-")
+    r1, r2 = r.split("-")
+    print(l1, l2, r1, r2)
+
+    left = set(range(int(l1), int(l2)+1))
+    right = set(range(int(r1), int(r2)+1))
+   
+    #part 1 wants you to use issubset()
+    #part 2 wants you to use intersection()
+    if left.intersection(right):
+      print("left is subset of right")
+      n += 1
+    elif right.intersection(left):
+      print("right is subset of left")
+      n += 1
+      
+print(n)
+
+    

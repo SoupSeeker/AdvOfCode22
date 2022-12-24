@@ -1,0 +1,12 @@
+with open("aoc-day6", "r") as f:
+  ar = []
+  lines = f.read().strip() 
+  for ch in lines: #O(n)
+    ar.append(ch)
+    
+  for i in range(len(ar)): #O(n)
+    batch = set(ar[i:i+14]) #just change from 4 to 14 for part 2
+    if len(batch) > 13:    #and change 3 to 13
+      print(i+14)
+      print('no duplicates in', batch)
+      break
